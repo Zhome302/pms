@@ -1,0 +1,73 @@
+//buildScript里是gradle脚本本身执行所需依赖库和插件
+buildscript {
+    ext {
+        springBootVersion = '2.1.8.RELEASE'
+    }
+    //repositories是project一个方法，闭包作为参数,资源库
+    repositories {
+        //本地仓库
+        mavenLocal()
+        //maven私服，此处设置为ali的，地址是url
+        maven {
+            name "public"
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+        }
+        //远程中央仓库,地址是https://repo1.maven.org/maven2
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+//该块的repositories用于多项目构建,为所有项目提供共同所需依赖包。而子项目可以配置自己的repositories以获取自己独需的依赖包
+allprojects {
+    apply plugin: 'idea'
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        mavenCentral()
+    }
+    tasks.withType(JavaCompile){
+        //JDK版本,兼容性，编码环境
+        sourceCompatibility = 1.8
+        //编译环境
+        targetCompatibility = 1.8
+        //设置编码
+        options.encoding = "UTF-8"
+    }
+}
+//配置这个项目的子项目。这个方法对这个项目的每个子项目执行给定的闭包。目标项目作为闭包的委托传递给闭包
+subprojects {
+    //java插件,传统Java项目对应的一系列构建Task
+    apply plugin: 'java'
+    //用来引入自动构建Springboot相关的Task
+    apply plugin: 'org.springframework.boot'
+    //Springboot2开始引入的新的构建插件，主要解决的是引用依赖关系的，后续对应的依赖版本都可以忽略不写,
+    //在我们添加第三方依赖时，不需要写版本号，它能自动帮我们选择一个最优的版本，保证最大限度的扩展
+    apply plugin: 'io.spring.dependency-management'
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+}
+
+project(':pms.content') {
+    dependencies {
+        compile project(":pms.common")
+    }
+}
+project(':pms.portal') {
+    dependencies {
+        compile project(":pms.common")
+    }
+}
+project(':pms.practice') {
+    dependencies {
+        compile project(":pms.common")
+    }
+}

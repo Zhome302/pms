@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'com.ai.zhome.pms'
+//version为project的方法
+version = '1.0-SNAPSHOT'
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    implementation 'org.springframework.data:spring-data-redis'
+    implementation 'redis.clients:jedis'
+    implementation 'javax.persistence:persistence-api:1.0.2'
+    implementation 'com.alibaba:druid:1.1.9'
+
+    runtimeOnly 'mysql:mysql-connector-java'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+/**
+ * implementation：将依赖项添加到项目中，并在构建时将依赖项打包进项目；但是依赖进来的项目不可以传递依赖；
+ *
+ *     implementation 三种使用方式：
+ *     implementation project(":mylibrary") 依赖本地项目
+ *     implementation fileTree(dir: 'libs', include: ['*.jar']) 依赖lib包
+ *     implementation 'com.example.android:app-magic:12.3' 依赖远程项目
+ *
+ * api:可以将依赖项编译打包进项目，可以进行模块之间的传递依赖；api只有java-library 插件中才有的属性；
+ * compileOnly：Gradle 仅将依赖项添加到编译类中，不会添加到构建输出项目中。取代了runtime
+ * compile：implementation与api 是用来替换compile的，compile拥有两者的功能,已经被Gradle废弃；
+ * testImplementation：测试依赖，构建时不打入包中，去掉了testCompile
+ *
+ */

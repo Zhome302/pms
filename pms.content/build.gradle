@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+//项目分组,项目名称name在settings.gradle中
+group 'com.ai.zhome.pms'
+//version为project的方法
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    implementation 'org.springframework.data:spring-data-redis'
+    implementation 'redis.clients:jedis'
+    implementation 'javax.persistence:persistence-api:1.0.2'
+    implementation 'com.alibaba:druid:1.1.9'
+
+    runtimeOnly 'mysql:mysql-connector-java'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}

@@ -1,0 +1,3 @@
+rootProject.name = 'pms'
+include 'pms.common','pms.portal','pms.content','pms.practice'
+
