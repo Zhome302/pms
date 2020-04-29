@@ -15,8 +15,20 @@ server:
       suffix: .log
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/zhome?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
-    username: root
-    password: root
+    #多数据源配置url要使用jdbcUrl;mysql5与mysql6的driver-class-name不同，后者要加cj
+    master:
+      jdbcUrl: jdbc:mysql://127.0.0.1:3306/jsoms?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+    slave:
+      jdbcUrl: jdbc:mysql://127.0.0.1:23306/jsctiptv4?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
+
+logging:
+  level:
+    com.zaxxer.hikari: debug

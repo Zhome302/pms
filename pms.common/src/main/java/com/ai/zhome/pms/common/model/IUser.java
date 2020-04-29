@@ -1,4 +1,4 @@
-package com.ai.zhome.pms.commom.model;
+package com.ai.zhome.pms.common.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
